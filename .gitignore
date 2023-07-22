@@ -1,1 +1,6 @@
 /target
+/.cargo
+/packages
+/.target
+/.vscode
+

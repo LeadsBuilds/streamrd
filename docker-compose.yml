@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  rust:
+    container_name: streamrd-api
+    build:
+      context: .
+      dockerfile: .Dockerfile
+    volumes: 
+      - .:/home/rust/app
+      - ./.cargo/registry:/usr/local/cargo/registry
+      - ./.target:/root/target
+      - ./packages/server:/src
+    command: 
+      - /bin/sh
+      - -c
+      - |
+        cargo watch \
+          -x run \
+          -w Cargo.toml \
+          -w src
+    tty: true
+    environment:
+      - USER=$USER
+      - CARGO_TARGET_DIR=/root/target
+    ports:
+      - 8000:8000
+
+  mongodb:
+    container_name: streamrd-mongo
+    image: skazuki/alpine-mongodb
+    ports:
+      - 27017:27017
