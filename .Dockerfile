@@ -1,4 +1,4 @@
-from rust:1.71
+from rust:1.79
 
 RUN groupadd -r -g 2200 streamrd && useradd -rM -g streamrd -u 2200 streamrd
 USER $USER:2200
